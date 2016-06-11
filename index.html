@@ -122,13 +122,14 @@
 			}
 
 			const statusLabels = [
-				createLabelUpdator('All', str => str.length),
-				createLabelUpdator('Alphabet', str => str.replace(/[^a-zA-Z]+/g, '').length),
-				createLabelUpdator('Number', str => str.replace(/[^0-9\uff10-\uff19]+/g, '').length),
-				createLabelUpdator('Hiragana', str => str.replace(/[^\u3041-\u3096]+/g, '').length),
-				createLabelUpdator('Katakana', str => str.replace(/[^\u30A1-\u30F6\uFF61-\uFF9F]+/g, '').length),
-				createLabelUpdator('Kanji', str => str.replace(/[^[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]|[\uD840-\uD868][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|[\uD86A-\uD86C][\uDC00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D]|\uD87E[\uDC00-\uDE1D]]+/g, '').length),
-				createLabelUpdator('Row', str => str.length > 0 ? str.replace(/[^\r\n]/g, '').length + 1 : 0)
+				createLabelUpdator('すべて', str => str.length),
+				createLabelUpdator('アルファベット', str => str.length - str.replace(/[a-zA-Z\uff41-\uff5a\uff21-\uff3a]+/g, '').length),
+				createLabelUpdator('数字', str => str.length - str.replace(/[0-9\uff10-\uff19]+/g, '').length),
+				createLabelUpdator('ひらがな', str => str.length - str.replace(/[\u3041-\u3096]+/g, '').length),
+				createLabelUpdator('カタカナ', str => str.length - str.replace(/[\u30A1-\u30F6\uFF61-\uFF9F]+/g, '').length),
+				createLabelUpdator('漢字', str => str.length - str.replace(/[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]|[\uD840-\uD868][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|[\uD86A-\uD86C][\uDC00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D]|\uD87E[\uDC00-\uDE1D]+/g, '').length),
+				createLabelUpdator('改行', str => str.length - str.replace(/[\f\n\r]+/g, '').length),
+				createLabelUpdator('その他', str => str.replace(/[a-zA-Z\uFF41-\uFF5A\uFF21-\uFF3A0-9\uFF10-\uFF19\u3041-\u3096\u30A1-\u30F6\uFF61-\uFF9F\f\n\r]|[\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u3005\u3007\u3021-\u3029\u3038-\u303B\u3400-\u4DB5\u4E00-\u9FCC\uF900-\uFA6D\uFA70-\uFAD9]|[\uD840-\uD868][\uDC00-\uDFFF]|\uD869[\uDC00-\uDED6\uDF00-\uDFFF]|[\uD86A-\uD86C][\uDC00-\uDFFF]|\uD86D[\uDC00-\uDF34\uDF40-\uDFFF]|\uD86E[\uDC00-\uDC1D]|\uD87E[\uDC00-\uDE1D]+/g, '').length)
 			]
 
 			const update = () => {
