@@ -104,6 +104,23 @@
 				}
 			}
 
+			const throttle = (fn, delay) => {
+				let next = null
+				let timer = null
+				return (...args) => {
+					if(next < Date.now()){
+						next = Date.now() + delay
+						fn(...args)
+					} else if(!timer) {
+						setTimeout(() => {
+							fn(...args)
+							next = Date.now() + delay
+							timer = null
+						}, next - Date.now())
+					}
+				}
+			}
+
 			const statusLabels = [
 				createLabelUpdator('All', str => str.length),
 				createLabelUpdator('Alphabet', str => str.replace(/[^a-zA-Z]+/g, '').length),
@@ -123,7 +140,7 @@
 			textarea.focus()
 			textarea.value = localStorage.getItem('text')
 
-			textarea.addEventListener('input', update)
+			textarea.addEventListener('input', throttle(update, 250))
 			update()
 		})
 	</script>
